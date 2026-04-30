@@ -4,6 +4,7 @@ import TodoItem from './components/TodoItem';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Login from './components/Login';
+import { motion, AnimatePresence } from 'framer-motion';
 import { fetchTodos, createTodo, updateTodo, deleteTodo } from './services/api';
 
 function App() {
@@ -98,7 +99,12 @@ function App() {
   }
 
   return (
-    <div className="dashboard-layout">
+    <motion.div 
+      className="dashboard-layout"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <Sidebar currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} />
       
       <div className="main-content">
@@ -110,24 +116,32 @@ function App() {
             
             {currentFilter === 'today' && <TodoForm onAdd={handleAddTodo} />}
 
-            <div>
+            <div className="todo-list-container">
               {filteredTodos.length === 0 ? (
-                <p className="empty-state">No tasks here!</p>
+                <motion.p 
+                  className="empty-state"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  No tasks here!
+                </motion.p>
               ) : (
-                filteredTodos.map(todo => (
-                  <TodoItem 
-                    key={todo._id} 
-                    todo={todo} 
-                    onToggle={handleToggle} 
-                    onDelete={handleDelete} 
-                  />
-                ))
+                <AnimatePresence mode="popLayout">
+                  {filteredTodos.map(todo => (
+                    <TodoItem 
+                      key={todo._id} 
+                      todo={todo} 
+                      onToggle={handleToggle} 
+                      onDelete={handleDelete} 
+                    />
+                  ))}
+                </AnimatePresence>
               )}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

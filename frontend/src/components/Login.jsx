@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { loginUser, registerUser } from '../services/api';
+import { motion } from 'framer-motion';
 
 function Login({ setToken, setUserEmail }) {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -20,7 +21,6 @@ function Login({ setToken, setUserEmail }) {
         setUserEmail(response.data.email);
       } else {
         await registerUser(email, password);
-        // Automatically log them in after registration
         const loginResponse = await loginUser(email, password);
         localStorage.setItem('token', loginResponse.data.token);
         localStorage.setItem('email', loginResponse.data.email);
@@ -34,7 +34,13 @@ function Login({ setToken, setUserEmail }) {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: 'var(--bg-color)' }}>
-      <div className="app-container" style={{ maxWidth: '400px' }}>
+      <motion.div 
+        className="app-container" 
+        style={{ maxWidth: '400px' }}
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
         <h2 className="app-title" style={{ textAlign: 'center' }}>
           {isLoginMode ? 'Welcome Back' : 'Create Account'}
         </h2>
@@ -67,7 +73,7 @@ function Login({ setToken, setUserEmail }) {
            onClick={() => setIsLoginMode(!isLoginMode)}>
           {isLoginMode ? "Don't have an account? Register here" : "Already have an account? Login here"}
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -14,9 +14,7 @@ const TodoSchema = mongoose.Schema({
         ref: 'User',
         required: true
     }
-}, { timestamps: true 
-        
-});
+}, { timestamps: true });
 
 const Todo = mongoose.model("Todo", TodoSchema);
 

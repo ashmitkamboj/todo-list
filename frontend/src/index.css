@@ -170,11 +170,13 @@ body {
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .todo-input:focus {
   border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(193, 237, 204, 0.5);
+  transform: translateY(-1px);
 }
 
 .todo-button {
@@ -186,15 +188,18 @@ body {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: opacity 0.3s, transform 0.1s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .todo-button:hover {
-  opacity: 0.8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(193, 237, 204, 0.6);
 }
 
 .todo-button:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 /* --- ITEM STYLES --- */
@@ -241,12 +246,14 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-left: 10px;
 }
 
 .delete-button:hover {
   background-color: #e60000;
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 8px rgba(255, 77, 77, 0.3);
 }
 
 .empty-state {
