@@ -4,6 +4,7 @@ import TodoItem from './components/TodoItem';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Login from './components/Login';
+import CustomCursor from './components/CustomCursor';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchTodos, createTodo, updateTodo, deleteTodo } from './services/api';
 
@@ -95,11 +96,28 @@ function App() {
   };
 
   if (!token) {
-    return <Login setToken={setToken} setUserEmail={setUserEmail} />;
+    return (
+      <>
+        <CustomCursor />
+        <div className="bg-blobs">
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="blob blob-3"></div>
+        </div>
+        <Login setToken={setToken} setUserEmail={setUserEmail} />
+      </>
+    );
   }
 
   return (
-    <motion.div 
+    <>
+      <CustomCursor />
+      <div className="bg-blobs">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
+      <motion.div 
       className="dashboard-layout"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -142,6 +160,7 @@ function App() {
         </div>
       </div>
     </motion.div>
+  </>
   );
 }
 
